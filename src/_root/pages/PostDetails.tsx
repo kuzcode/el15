@@ -1,23 +1,22 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
 import {
   useGetPostById,
 } from "@/lib/react-query/queries";
-import { multiFormatDateString } from "@/lib/utils";
 const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const { data: post, isLoading } = useGetPostById(id);
   return (
-    <div className="post_details-container">
+    <div className="">
       <div className="hidden md:flex max-w-5xl w-full">
         <Button
           onClick={() => navigate(-1)}
           variant="ghost"
-          className="shad-button_ghost">
+          className="shad-button_ghost absolute">
           <img
             src={"/assets/icons/back.svg"}
             alt="back"
@@ -31,57 +30,33 @@ const PostDetails = () => {
       {isLoading || !post ? (
         <Loader />
       ) : (
-        <div className="post_details-card">
+        <div className="">
           <img
-            src={post?.imageUrl}
-            alt="creator"
-            className="post_details-img"
+            src={post.imageUrl}
+            className="w-[100%] rounded-[12px]"
           />
 
-          <div className="post_details-info">
-            <div className="flex-between w-full">
-              <Link
-                to={`/profile/${post?.creator.$id}`}
-                className="flex items-center gap-3">
-                <img
-                  src={
-                    post?.creator.imageUrl ||
-                    "/assets/icons/profile-placeholder.svg"
-                  }
-                  alt="creator"
-                  className="w-8 h-8 lg:w-12 lg:h-12 rounded-full"
-                />
-                <div className="flex gap-1 flex-col">
-                  <p className="base-medium lg:body-bold text-light-1">
-                    {post?.creator.name}
-                  </p>
-                  <div className="flex-center gap-2 text-light-3">
-                    <p className="subtle-semibold lg:small-regular ">
-                      {multiFormatDateString(post?.$createdAt)}
-                    </p>
-                    •
-                    <p className="subtle-semibold lg:small-regular">
-                      {post?.location}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            </div>
+          <h1 className="text-[32px] font-bold mx-3">{post.caption} - {post.price}BYN</h1>
+          <h1 className="text-[32px] font-bold">{post.description}</h1>
 
-            <hr className="border w-full border-dark-4/80" />
+          <div className="px-[10px] mt-[4px] flex flex-row">
+            {post.colors.map((color: any) => (
+              <div style={{
+                backgroundColor: `#${color}`,
+              }}
+                className="w-[28px] h-[28px] mx-[2px] border-[2px] border-[#00000008] rounded-full"
+              ></div>
+            ))}
 
-            <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
-              <p>{post?.caption}</p>
-              <ul className="flex gap-1 mt-2">
-                {post?.tags.map((tag: string, index: string) => (
-                  <li
-                    key={`${tag}${index}`}
-                    className="text-light-3 small-regular">
-                    #{tag}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <p className="text-[17px] text-[#191920af]">{post.colors.length} цвет</p>
+
+            <div className="px-[10px] mt-[4px] flex flex-row">
+            {post.sizes.map((size: any) => (
+              <div className="bg-white px-5 py-2 border-[2px] border-[#000] rounded-[10px]">
+              <p className="text-[24px]">{size}</p>
+              </div>
+            ))}
+          </div>
           </div>
         </div>
       )}

@@ -57,8 +57,8 @@ const Home = () => {
             </div>
 
             <div>
-              <h3 className="h3-bold md:h2-bold text-center w-full">Кроссовки. Мода. Заебись.</h3>
-              <p className="text-[20px] text-center w-full px-[20%] text-[#808187]">Закупитесь кроссовками на любой вкус, цвет и размер ноги</p>
+              <h3 className="h3-bold md:h2-bold text-center w-full px-3">Кроссовки. Мода. Заебись.</h3>
+              <p className="text-[20px] text-center w-full px-[10%] text-[#808187]">Закупитесь кроссовками на любой вкус, цвет и размер ноги</p>
             </div>
 
             {showPopup && (
@@ -85,7 +85,7 @@ const Home = () => {
               <ul className="flex flex-row flex-wrap justify-center">
                 {posts?.documents.map((post: Models.Document) => (
                   <li key={post.$id} className="flex justify-center m-2 h-96">
-                    <div className="shadow-xl">
+                    <div className="shadow-xl rounded-[12px]">
                       <Link to={`/posts/${post.$id}`}>
                         <img
                           src={post.imageUrl || "/assets/icons/profile-placeholder.svg"}
@@ -100,7 +100,17 @@ const Home = () => {
                             <p className="base-medium lg:body-bold text-dark-1 mx-3 mb-0 p-0">
                               {post.caption} · {post.price}BYN
                             </p>
-                            <button className="bg-black mx-3 text-white font-medium rounded-[6px] mt-1 py-1" onClick={() => { alert(cartList) }}>В корзину +</button>
+                            <div className="px-[10px] mt-[4px] flex flex-row">
+                              {post.colors.map((color: any) => (
+                                <div style={{
+                                  backgroundColor: `#${color}`,
+                                }}
+                                className="w-[28px] h-[28px] mx-[2px] border-[2px] border-[#00000008] rounded-full"
+                                ></div>
+                              ))}
+
+                              <p className="text-[17px] text-[#191920af]">{post.colors.length} цвет</p>
+                            </div>
                           </div>
                         </div>
                       </div>
