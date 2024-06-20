@@ -1,7 +1,7 @@
 import { Models } from "appwrite";
-import React, { useState } from 'react';
+import { useState } from 'react';
 // import { useToast } from "@/components/ui/use-toast";
-import { Loader, PostCard } from "@/components/shared";
+import { Loader } from "@/components/shared";
 import { Link } from "react-router-dom";
 import { useGetRecentPosts } from "@/lib/react-query/queries";
 
@@ -15,7 +15,7 @@ const Home = () => {
 
   const [showPopup, setShowPopup] = useState(false); // Step 1: Create state for popup visibility
 
-  const [cartList, setCart] = useState([])
+  const [cartList] = useState([])
 
   if (isErrorPosts) {
     return (

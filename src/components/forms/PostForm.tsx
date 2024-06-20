@@ -32,7 +32,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
     defaultValues: {
       caption: post ? post?.caption : "",
       file: [],
-      price: 0,
     },
   });
 
@@ -87,23 +86,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="shad-form_label">Caption</FormLabel>
-              <FormControl>
-                <Textarea
-                  className="shad-textarea custom-scrollbar"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="shad-form_message" />
-            </FormItem>
-          )}
-        />
-
-      <FormField
-          control={form.control}
-          name="price"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label">Price</FormLabel>
               <FormControl>
                 <Textarea
                   className="shad-textarea custom-scrollbar"
