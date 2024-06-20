@@ -41,7 +41,7 @@ const Home = () => {
       >
         <div className="home-container">
           <div className="home-posts">
-            <div className="w-full flex flex-row justify-between">
+            <div className="w-full flex flex-row justify-between px-3">
               <h2 className="h3-bold md:h2-bold text-left w-full">EL/15</h2>
               <button
                 onClick={() => { setShowPopup(true); }}
