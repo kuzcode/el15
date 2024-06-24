@@ -32,15 +32,15 @@ const Home = () => {
 
   return (
     <>
-      <div className="flex flex-1 z-10"
+      <div className="flex flex-1 z-10 bg-[#f6f6f8]"
         onClick={() => {
           if (showPopup == true) {
             setShowPopup(false);
           }
         }}
       >
-        <div className="home-container">
-          <div className="home-posts">
+        <div className="pt-[10px]">
+          <div className="">
             <div className="w-full flex flex-row justify-between px-3">
               <h2 className="h3-bold md:h2-bold text-left w-full">EL/15</h2>
               <button
@@ -57,12 +57,14 @@ const Home = () => {
             </div>
 
             <div>
-              <h3 className="h3-bold md:h2-bold text-center w-full px-3">Кроссовки. Мода. Заебись.</h3>
-              <p className="text-[20px] text-center w-full px-[10%] text-[#808187]">Закупитесь кроссовками на любой вкус, цвет и размер ноги</p>
+              <h3 className="font-bold text-[20px] mt-[48px] text-center w-full px-3">Кроссовки. Мода. Заебись.</h3>
+                <div className="flex w-full justify-center">
+              <p className="text-[16px] leading-[20px] text-center px-[12px] w-full px-auto max-w-[310px] text-[#808187] pb-[48px]">Закупитесь кроссовками на любой вкус, цвет и размер ноги</p>
+                </div>
             </div>
 
             {showPopup && (
-              <div className="popup absolute bg-[#fff] shadow-xl rounded-[16px] z-50"
+              <div className="popup absolute bg-[#fff] rounded-[16px] z-50"
                 onClick={() => { setShowPopup(true) }}
                 style={{
                   width: '100%',
@@ -82,42 +84,35 @@ const Home = () => {
             {isPostLoading && !posts ? (
               <Loader />
             ) : (
-              <ul className="flex flex-row flex-wrap justify-center">
-                {posts?.documents.map((post: Models.Document) => (
-                  <li key={post.$id} className="flex justify-center m-2 h-96">
-                    <div className="shadow-xl rounded-[12px]">
-                      <Link to={`/posts/${post.$id}`}>
-                        <img
-                          src={post.imageUrl || "/assets/icons/profile-placeholder.svg"}
-                          alt="post image"
-                          className="post-card_img w-full"
-                        />
-                      </Link>
+              <><div>
+                  <p className="text-[16px] mx-2">Фильтры</p>
+                </div>
+                <ul className="flex flex-row w-full flex-wrap justify-between bg-[#f6f6f8] pb-[20px]">
+                    {posts?.documents.map((post: Models.Document) => (
+                      <li key={post.$id} className="flex justify-center w-[49%] my-[1%]">
+                        <div className="rounded-[0px] bg-[#ffffff]">
+                          <Link to={`/posts/${post.$id}`}>
+                            <img
+                              src={post.imageUrl || "/assets/icons/profile-placeholder.svg"}
+                              alt="post image"
+                              className="w-full rounded-[0px] mb-[8px]" />
+                          </Link>
 
-                      <div className="flex-between mb-0 p-0">
-                        <div className="flex items-center mb-0 p-0 w-full">
-                          <div className="flex flex-col w-full">
-                            <p className="base-medium lg:body-bold text-dark-1 mx-3 mb-0 p-0">
-                              {post.caption} · {post.price}BYN
-                            </p>
-                            <div className="px-[10px] mt-[4px] flex flex-row">
-                              {post.colors.map((color: any) => (
-                                <div style={{
-                                  backgroundColor: `#${color}`,
-                                }}
-                                className="w-[28px] h-[28px] mx-[2px] border-[2px] border-[#00000008] rounded-full"
-                                ></div>
-                              ))}
-
-                              <p className="text-[17px] text-[#191920af]">{post.colors.length} цвет</p>
+                          <div className="flex-between mb-0 p-0">
+                            <div className="flex items-center mb-0 p-0 w-full">
+                              <div className="flex flex-col w-full">
+                                <p className="text-[15px] text-dark-1 mx-2 mb-0 p-0">
+                                  {post.caption}
+                                </p>
+                                <p className="text-[14px] mx-2 text-[#191920af]">{post.colors.length} цвет</p>
+                                <p className="text-[15px] mb-[3px] mx-2 text-[#000000]">{post.price} BYN</p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+                      </li>
+                    ))}
+                  </ul></>
             )}
           </div>
         </div>
