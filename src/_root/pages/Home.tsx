@@ -13,6 +13,13 @@ const Home = () => {
     isError: isErrorPosts,
   } = useGetRecentPosts();
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleBlockClick = () => {
+    setIsExpanded(!isExpanded);
+  };
+  
+
   const [showPopup, setShowPopup] = useState(false); // Step 1: Create state for popup visibility
 
   const [cartList] = useState([])
@@ -84,9 +91,20 @@ const Home = () => {
             {isPostLoading && !posts ? (
               <Loader />
             ) : (
-              <><div>
-                  <p className="text-[16px] mx-2">Фильтры</p>
+              <><div
+              className={`bg-[#fff] py-[2px] my-[4px] cursor-pointer ${isExpanded ? 'expanded' : ''}`}
+              onClick={handleBlockClick}
+            >
+              <div className="flex flex-row justify-between px-2">
+              <p className="text-[17px]">Фильтры</p>
+              <img src="/assets/icons/filter.png" alt="" className="w-[24px] h-[24px]" />
+              </div>
+              {isExpanded && (
+                <div className="px-3">
+                  <p className="text-[15px] text-[#626466]">Тут будут фильтры</p>
                 </div>
+              )}
+            </div>
                 <ul className="flex flex-row w-full flex-wrap justify-between bg-[#f6f6f8] pb-[20px]">
                     {posts?.documents.map((post: Models.Document) => (
                       <li key={post.$id} className="flex justify-center w-[49%] my-[1%]">
